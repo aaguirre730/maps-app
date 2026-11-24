@@ -12,3 +12,10 @@ En consola escribimos:
 `node ./scripts/set-envs.js`
 o
 `npm run set-envs`
+
+## Uso de Mapbox
+URL: https://docs.mapbox.com/
+
+Documentación
+https://docs.mapbox.com/mapbox-gl-js/guides/
+`npm install mapbox-gl`
