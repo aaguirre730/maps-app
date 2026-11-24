@@ -6,5 +6,9 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 1. Clonar repositorio
 2. Instalar dependencias
-3. Generar el .env basado en el .env.template
-
+3. Generar el `.env` basado en el `.env.template`
+4. Ejecutar script para crear variable de entorno.
+En consola escribimos:
+`node ./scripts/set-envs.js`
+o
+`npm run set-envs`
