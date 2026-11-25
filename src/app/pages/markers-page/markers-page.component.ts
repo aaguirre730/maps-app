@@ -1,6 +1,7 @@
+import { JsonPipe } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angular/core';
 import { environment } from '@environments/environment.development';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import {v4 as UUIDv4} from 'uuid';
 
 // configuración el worker externo
@@ -13,7 +14,7 @@ interface Marker {
 
 @Component({
   selector: 'app-markers-page',
-  imports: [],
+  imports: [JsonPipe],
   templateUrl: './markers-page.component.html',
 })
 export class MarkersPageComponent implements AfterViewInit {
@@ -95,5 +96,14 @@ export class MarkersPageComponent implements AfterViewInit {
   console.log(this.markers());
   }
 
+  flyToMarker(lngLat: LngLatLike) {
+    if (!this.map) return;
+
+    this.map()?.flyTo({
+      center: lngLat,
+      zoom: 14
+    });
+
+  }
 
 }
