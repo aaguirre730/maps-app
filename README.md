@@ -19,3 +19,14 @@ URL: https://docs.mapbox.com/
 Documentación
 https://docs.mapbox.com/mapbox-gl-js/guides/
 `npm install mapbox-gl`
+
+
+## Troubleshooting: Los cambios en el HTML no se reflejan en el navegador
+
+Si la consola de Angular recompila normalmente (`Component update sent to client(s).`) pero los cambios no aparecen en pantalla, suele tratarse de una desincronización de **Component HMR**.
+
+### Soluciones rápidas
+
+1. **Desactivar HMR:** Frenar el servidor (`Ctrl + C`) y levantarlo sin Hot Module Replacement:
+   ```bash
+   ng serve -o --no-hmr
