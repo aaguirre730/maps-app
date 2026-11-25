@@ -15,4 +15,12 @@
     #txtZoom
   />
   <!-- el signo "+" convierte a numérico -->
+   <h2 class="text-2xl font-bold text-black mb-2">Coordenadas</h2>
+   <pre class="text-sm text-gray-500 font-normal">{{
+      {
+        longitud: coordinatesMap().lat | number: '1.4-4',
+        latitud: coordinatesMap().lat | number: '1.4-4',
+      } | json
+     }}
+   </pre>
 </section>
