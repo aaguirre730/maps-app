@@ -49,8 +49,11 @@ export class FullscreenMapPageComponent implements AfterViewInit {
     //this.map()?.zoomTo(this.zoom())
   })
 
-  ngAfterViewInit(){
+  async ngAfterViewInit(){
     if(!this.divElement()?.nativeElement) return;
+
+    await new Promise((resolve) => setTimeout(resolve,80))
+    
     const element = this.divElement()!.nativeElement;
     const {lng, lat} = this.coordinatesMap();
 
