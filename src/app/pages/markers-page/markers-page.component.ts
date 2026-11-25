@@ -1,9 +1,15 @@
 import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import mapboxgl from 'mapbox-gl';
+import {v4 as UUIDv4} from 'uuid';
 
 // configuración el worker externo
 mapboxgl.workerUrl = '/assets/mapbox-gl-csp-worker.js';
+
+interface Marker {
+  id: string;
+  mapboxMarker: mapboxgl.Marker;
+}
 
 @Component({
   selector: 'app-markers-page',
@@ -16,6 +22,8 @@ export class MarkersPageComponent implements AfterViewInit {
   divElement = viewChild<ElementRef>('map');
 
   map = signal<mapboxgl.Map|null>(null);
+
+  markers = signal<Marker[]>([]);
 
   zoom = signal(14);
 
@@ -36,22 +44,56 @@ export class MarkersPageComponent implements AfterViewInit {
   });
 
   // draggable: true -> permite mover el marcador
-    const marker = new mapboxgl.Marker({
-      draggable: false,
-      color: 'blue',
-    })
-    .setLngLat([-65.4103,-24.7883])
-    .addTo(map);
+  //    const marker = new mapboxgl.Marker({
+  //      draggable: false,
+  //      color: 'blue',
+  //    })
+  //    .setLngLat([-65.4103,-24.7883])
+  //    .addTo(map);
 
-    marker.on('dragend', (event) => {
-      console.log(event)
-    });
+   //   marker.on('dragend', (event) => {
+   //     console.log(event)
+  //    });
 
-    this.MapListeners(map);
+    this.mapListeners(map);
   }
 
-  MapListeners(map: mapboxgl.Map) {
-    console.log('object');
+  mapListeners(map: mapboxgl.Map) {
+
+    map.on('click',(event) => this.mapClick(event))
+    this.map.set(map); // guardamos la isntancia en la señal
+
   }
+
+  mapClick(event: mapboxgl.MapMouseEvent) {
+
+  if (!this.map()) return; // evitamos errores si el mapa aun es null
+  const map = this.map()!;
+
+  const colorRandom = '#xxxxxx'.replace(/x/g, (y) =>
+    ((Math.random() * 16) | 0).toString(16)
+  );
+
+  const coords = event.lngLat;
+
+  const mapboxMarker = new mapboxgl.Marker({
+    draggable: false,
+    color: colorRandom,
+  }).setLngLat(coords)
+  .addTo(map); // pasamos el valor de la señal, no el signal
+
+  console.log(coords);
+
+  const newMarker: Marker = {
+    id:UUIDv4(),
+    mapboxMarker: mapboxMarker
+  }
+
+  //this.markers.set([newMarker, ... this.markers()]);
+  this.markers.update((markers) => [newMarker, ...markers]);
+
+  console.log(this.markers());
+  }
+
 
 }
