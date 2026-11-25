@@ -32,4 +32,9 @@ export class NavbarComponent {
     map(event => event.url),
     map(url => routes.find(route => `/${route.path}` === url)?.title ?? 'Mapas')
   ));
+
+closeMenu() {
+  (document.activeElement as HTMLElement)?.blur();
+}
+
 }
