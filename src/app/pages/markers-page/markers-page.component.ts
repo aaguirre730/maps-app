@@ -97,7 +97,7 @@ export class MarkersPageComponent implements AfterViewInit {
   }
 
   flyToMarker(lngLat: LngLatLike) {
-    if (!this.map) return;
+    if (!this.map()) return;
 
     this.map()?.flyTo({
       center: lngLat,
@@ -106,6 +106,7 @@ export class MarkersPageComponent implements AfterViewInit {
   }
 
   deleteMarker(marker: Marker) {
+    console.log('eliminando', marker.id)
     if(!this.map()) return;
     const  map = this.map()!;
 

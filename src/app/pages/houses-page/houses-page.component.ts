@@ -1,10 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import {v4 as UUIDv4} from 'uuid';
+import { MiniMapComponent } from '../../maps/components/mini-map/mini-map.component';
+
+interface HouseProperty {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  lngLat: { lng: number; lat: number };
+  tags: string[];
+}
 
 @Component({
   selector: 'app-houses-page',
-  imports: [],
+  imports: [MiniMapComponent],
   templateUrl: './houses-page.component.html',
 })
 export class HousesPageComponent {
+
+houses = signal<HouseProperty[]>([
+    {
+      id: UUIDv4(),
+      name: 'Villa Serenidad',
+      description:
+        'Un refugio tranquilo con vistas panorámicas al mar y jardines exuberantes.',
+      price: 500_000,
+      lngLat: { lng: 116.390692, lat: 39.915994},
+      tags: ['Villa', 'Mar', 'Jardines'],
+    },
+    {
+      id: UUIDv4(),
+      name: 'Casa del Sol',
+      description:
+        'Una casa luminosa y acogedora con amplias terrazas y piscina privada.',
+      price: 750_000,
+      lngLat: { lng: 2.3499, lat: 48.8530 },
+      tags: ['Casa', 'Sol', 'Terrazas'],
+    },
+    {
+      id: UUIDv4(),
+      name: 'Residencia Esmeralda',
+      description:
+        'Elegante propiedad con acabados de lujo y un diseño arquitectónico moderno.',
+      price: 1_200_000,
+      lngLat: { lng: 12.453333, lat: 41.902222 },
+      tags: ['Casa', 'Esmeralda', 'Acabados'],
+    },
+    {
+      id: UUIDv4(),
+      name: 'Hacienda del Lago',
+      description:
+        'Encantadora hacienda con acceso directo al lago y un entorno natural impresionante.',
+      price: 950_000,
+      lngLat: { lng: 2.1204, lat: 48.8049 },
+      tags: ['Casa', 'Lago', 'Hacienda'],
+    },
+  ]);
 
 }
